@@ -1,9 +1,7 @@
 name: Temporary Hintonship Worker Probe
 
 on:
-  push:
-    paths:
-      - '.github/workflows/gateway-probe.yml'
+  pull_request:
   workflow_dispatch:
 
 permissions:
