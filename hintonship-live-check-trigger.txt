@@ -1,0 +1,1 @@
+Temporary production smoke check trigger. Remove after verification.
