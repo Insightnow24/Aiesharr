@@ -125,7 +125,19 @@ const projects: Project[] = [
   },
 ];
 
+const requiredTasks: Task[] = [
+  {
+    id: "hintonship-github-draft-cleanup-2026-08-07",
+    title: "Hintonship GitHub draft cleanup: approve #173 after updating main; rebuild Biology from #136 and Teacher Prep from #80; close #172, #161, #143, #141, and #9.",
+    project: "hintonship",
+    owner: "Amber",
+    priority: "Next",
+    done: false,
+  },
+];
+
 const initialTasks: Task[] = [
+  ...requiredTasks,
   { id: "t1", title: "Get Garden of Truth production deployment healthy", project: "garden", owner: "AIESHAR", priority: "Now", done: false },
   { id: "t2", title: "Verify owner login and Learning Command Center", project: "garden", owner: "Amber", priority: "Now", done: false },
   { id: "t3", title: "Repair Hintonship profile and passcode switching", project: "hintonship", owner: "AIESHAR", priority: "Next", done: false },
@@ -141,10 +153,16 @@ const statusLabels: Record<Status, string> = {
   paused: "Paused",
 };
 
+function mergeRequiredTasks(tasks: Task[]): Task[] {
+  const existingIds = new Set(tasks.map((task) => task.id));
+  return [...requiredTasks.filter((task) => !existingIds.has(task.id)), ...tasks];
+}
+
 function loadTasks(): Task[] {
   try {
     const stored = localStorage.getItem("amber-os.tasks");
-    return stored ? JSON.parse(stored) : initialTasks;
+    const savedTasks: Task[] = stored ? JSON.parse(stored) : initialTasks;
+    return mergeRequiredTasks(savedTasks);
   } catch {
     return initialTasks;
   }
