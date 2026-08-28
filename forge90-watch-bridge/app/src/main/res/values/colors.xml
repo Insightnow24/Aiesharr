@@ -1,0 +1,7 @@
+<resources>
+    <color name="forge_bg">#03110F</color>
+    <color name="forge_panel">#0A2420</color>
+    <color name="forge_mint">#74EFC0</color>
+    <color name="forge_text">#F4FFF9</color>
+    <color name="forge_muted">#8EAEA4</color>
+</resources>
