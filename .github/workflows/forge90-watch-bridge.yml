@@ -5,7 +5,7 @@ on:
     branches:
       - forge90-watch-bridge-build-20260828
     paths:
-      - 'forge90v2-src.part*'
+      - 'forge90-watch-bridge/**'
       - '.github/workflows/forge90-watch-bridge.yml'
   workflow_dispatch:
 
@@ -17,19 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Restore source
-        run: |
-          cat forge90v2-src.part* > /tmp/forge90-watch-bridge.b64
-          base64 -d /tmp/forge90-watch-bridge.b64 > /tmp/forge90-watch-bridge.tar.gz
-          tar -xzf /tmp/forge90-watch-bridge.tar.gz
-          test -f forge90-watch-bridge/gradle.properties
-          grep -q 'android.useAndroidX=true' forge90-watch-bridge/gradle.properties
-          grep -q '8.13.0' forge90-watch-bridge/build.gradle.kts
-          grep -q 'compileSdk = 36' forge90-watch-bridge/app/build.gradle.kts
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+      - name: Ensure Android API 36
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" >/dev/null
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
