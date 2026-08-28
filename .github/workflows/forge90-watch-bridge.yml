@@ -1,0 +1,36 @@
+name: Build Forge 90 Watch Bridge
+
+on:
+  push:
+    branches:
+      - forge90-watch-bridge-build-20260828
+    paths:
+      - 'forge90-watch-bridge-src.tar.gz.b64'
+      - '.github/workflows/forge90-watch-bridge.yml'
+  workflow_dispatch:
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore source
+        run: |
+          base64 -d forge90-watch-bridge-src.tar.gz.b64 > /tmp/forge90-watch-bridge.tar.gz
+          tar -xzf /tmp/forge90-watch-bridge.tar.gz
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        working-directory: forge90-watch-bridge
+        run: gradle :app:assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: forge90-watch-bridge-apk
+          path: forge90-watch-bridge/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
