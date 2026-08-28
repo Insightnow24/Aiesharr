@@ -1,0 +1,28 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/forge_bg"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FORGE 90" android:textColor="@color/forge_text" android:textStyle="bold" android:textSize="28sp" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WATCH BRIDGE" android:textColor="@color/forge_mint" android:textStyle="bold" android:textSize="14sp" android:letterSpacing="0.12" android:layout_marginTop="2dp"/>
+        <TextView android:id="@+id/statusText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Checking Health Connect…" android:textColor="@color/forge_muted" android:textSize="14sp" android:layout_marginTop="12dp" android:layout_marginBottom="16dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/panel">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TODAY FROM YOUR WATCH" android:textColor="@color/forge_mint" android:textStyle="bold" android:textSize="12sp"/>
+            <TextView android:id="@+id/stepsText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Steps  —" android:textColor="@color/forge_text" android:textStyle="bold" android:textSize="22sp" android:layout_marginTop="12dp"/>
+            <TextView android:id="@+id/caloriesText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Active calories  —" android:textColor="@color/forge_text" android:textSize="18sp" android:layout_marginTop="8dp"/>
+            <TextView android:id="@+id/minutesText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Exercise  —" android:textColor="@color/forge_text" android:textSize="18sp" android:layout_marginTop="8dp"/>
+            <TextView android:id="@+id/distanceText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Distance  —" android:textColor="@color/forge_text" android:textSize="18sp" android:layout_marginTop="8dp"/>
+            <TextView android:id="@+id/workoutsText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Watch workouts  —" android:textColor="@color/forge_muted" android:textSize="14sp" android:layout_marginTop="10dp"/>
+        </LinearLayout>
+        <Button android:id="@+id/grantButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="GRANT HEALTH CONNECT ACCESS" android:textColor="#05231A" android:textStyle="bold" android:background="@drawable/button_primary" android:layout_marginTop="18dp"/>
+        <Button android:id="@+id/readButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="READ WATCH DATA" android:textColor="@color/forge_text" android:textStyle="bold" android:background="@drawable/button_secondary" android:layout_marginTop="10dp"/>
+        <Button android:id="@+id/syncButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="SYNC TO FORGE 90" android:textColor="#05231A" android:textStyle="bold" android:background="@drawable/button_primary" android:layout_marginTop="10dp"/>
+        <Button android:id="@+id/healthButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="OPEN HEALTH CONNECT" android:textColor="@color/forge_text" android:background="@drawable/button_secondary" android:layout_marginTop="10dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Forge 90 reads only steps, active calories, distance and exercise sessions in this build. Heart rate and sleep are not requested. Sync sends a one-time summary into Forge 90 in your browser." android:textColor="@color/forge_muted" android:textSize="12sp" android:lineSpacingExtra="3dp" android:layout_marginTop="18dp" android:layout_marginBottom="26dp"/>
+    </LinearLayout>
+</ScrollView>
