@@ -5,9 +5,12 @@ on:
     branches:
       - forge90-watch-bridge-build-20260828
     paths:
-      - 'forge90-watch-bridge-src.tar.gz.b64'
+      - 'forge90-src.part*'
       - '.github/workflows/forge90-watch-bridge.yml'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   assemble:
@@ -16,8 +19,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Restore source
         run: |
-          base64 -d forge90-watch-bridge-src.tar.gz.b64 > /tmp/forge90-watch-bridge.tar.gz
+          cat forge90-src.part* > /tmp/forge90-watch-bridge.b64
+          base64 -d /tmp/forge90-watch-bridge.b64 > /tmp/forge90-watch-bridge.tar.gz
           tar -xzf /tmp/forge90-watch-bridge.tar.gz
+          test -f forge90-watch-bridge/gradle.properties
+          grep -q 'android.useAndroidX=true' forge90-watch-bridge/gradle.properties
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -28,7 +34,15 @@ jobs:
       - name: Build debug APK
         working-directory: forge90-watch-bridge
         run: gradle :app:assembleDebug --stacktrace
-      - name: Upload APK
+      - name: Publish APK to branch
+        run: |
+          cp forge90-watch-bridge/app/build/outputs/apk/debug/app-debug.apk forge90-watch-bridge.apk
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add forge90-watch-bridge.apk
+          git commit -m 'Publish Forge 90 Watch Bridge APK' || true
+          git push
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: forge90-watch-bridge-apk
